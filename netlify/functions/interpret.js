@@ -1,9 +1,9 @@
 exports.handler = async (event) => {
   const body = JSON.parse(event.body);
-  const prompt = `You are an ancient dream guru. The user had the following dream:\n"${body.dream}"\nExplain what this dream means.`;
+  const prompt = `You are a wise dream guru. Someone had this dream: "${body.dream}". Please explain the hidden meaning behind it in a mystical and thoughtful way.`;
 
   try {
-    const response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-large", {
+    const response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-rw-1b", {
       method: "POST",
       headers: {
         Authorization: "Bearer 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",
@@ -14,8 +14,6 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
-    console.log("Hugging Face API response:", JSON.stringify(data)); // pridaj si toto pre debug
-
     if (Array.isArray(data) && data[0] && data[0].generated_text) {
       return {
         statusCode: 200,
@@ -24,12 +22,11 @@ exports.handler = async (event) => {
     } else {
       return {
         statusCode: 200,
-        body: JSON.stringify({ result: "The guru is still in deep meditation. Try again shortly." })
+        body: JSON.stringify({ result: "The guru is thinking deeply... try again shortly." })
       };
     }
 
   } catch (err) {
-    console.error("Server error:", err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Server error." })
