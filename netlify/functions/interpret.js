@@ -1,9 +1,9 @@
 exports.handler = async (event) => {
   const body = JSON.parse(event.body);
-  const prompt = `You are a mystical dream guru. Someone dreamed: "${body.dream}". Explain the meaning of this dream.`;
+  const prompt = `You are a mystical dream guru. Someone had this dream: "${body.dream}". Explain what it might mean.`;
 
   try {
-    const response = await fetch("https://api-inference.huggingface.co/models/bigscience/bloom-560m", {
+    const response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-rw-1b", {
       method: "POST",
       headers: {
         Authorization: "Bearer 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",
@@ -22,7 +22,7 @@ exports.handler = async (event) => {
     } else {
       return {
         statusCode: 200,
-        body: JSON.stringify({ result: "The guru is meditating too deeply to respond right now. Try again soon." })
+        body: JSON.stringify({ result: "The guru is still meditating. Try again soon." })
       };
     }
 
