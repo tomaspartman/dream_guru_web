@@ -1,5 +1,3 @@
-const fetch = require("node-fetch");
-
 exports.handler = async (event) => {
   const body = JSON.parse(event.body);
   const prompt = `You are an ancient dream guru. The user had the following dream:\n"${body.dream}"\nExplain what this dream means.`;
