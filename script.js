@@ -9,7 +9,7 @@ async function interpretDream() {
   document.getElementById('result').innerText = "The guru is meditating on your dream... please wait.";
 
   try {
-    const response = await fetch("/.netlify/functions/interpret", {
+    const response = await fetch("https://rad-cuchufli-39c86d.netlify.app/.netlify/functions/interpret", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
