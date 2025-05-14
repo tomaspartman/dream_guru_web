@@ -13,7 +13,7 @@ async function interpretDream() {
   const prompt = `You are an ancient dream guru. The user had the following dream:\n"${dreamText}"\nExplain what this dream means.`;
 
   try {
-    const response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-large", {
+    const response = await fetch("https://api-inference.huggingface.co/models/mrm8488/t5-base-finetuned-common_gen", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${API_TOKEN}`,
