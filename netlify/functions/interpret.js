@@ -1,43 +1,48 @@
 exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
-    const prompt = `You are a mystical dream guru. The user dreamed: "${body.dream}". Explain the meaning.`;
 
-    const response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-base", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: "Bearer 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",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ inputs: prompt })
+      body: JSON.stringify({
+        model: "gpt-4-1106-preview",
+        messages: [
+          {
+            role: "system",
+            content: "You are an ancient dream guru. Speak in a poetic, wise, and metaphorical tone. Interpret dreams with depth and a touch of mysticism."
+          },
+          {
+            role: "user",
+            content: `I had this dream: "${body.dream}". What does it mean?`
+          }
+        ],
+        temperature: 0.85,
+        max_tokens: 400
+      })
     });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "HuggingFace API error", details: errText })
-      };
-    }
 
     const data = await response.json();
 
-    if (Array.isArray(data) && data[0] && data[0].generated_text) {
+    if (data.choices && data.choices[0]) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ result: data[0].generated_text })
+        body: JSON.stringify({ result: data.choices[0].message.content })
       };
     } else {
       return {
-        statusCode: 200,
-        body: JSON.stringify({ result: "The guru is deep in thought. Try again soon." })
+        statusCode: 500,
+        body: JSON.stringify({ error: "Invalid response from OpenAI", details: data })
       };
     }
 
-  } catch (err) {
+  } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Function crashed", message: err.message })
+      body: JSON.stringify({ error: "Function error", message: error.message })
     };
   }
 };
