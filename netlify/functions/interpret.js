@@ -27,7 +27,7 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
-    if (data.choices && data.choices[0]) {
+    if (data.choices && data.choices[0] && data.choices[0].message) {
       return {
         statusCode: 200,
         body: JSON.stringify({ result: data.choices[0].message.content })
