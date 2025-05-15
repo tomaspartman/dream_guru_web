@@ -9,7 +9,7 @@ async function interpretDream() {
   document.getElementById('result').innerText = "The guru is meditating on your dream... please wait.";
 
   try {
-    const response = await fetch("https://rad-cuchufli-39c86d.netlify.app/.netlify/functions/interpret", {
+    const response = await fetch("/.netlify/functions/interpret", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -21,12 +21,17 @@ async function interpretDream() {
 
     if (data.result) {
       document.getElementById('result').innerText = data.result;
+    } else if (data.error) {
+      document.getElementById('result').innerText =
+        `Guru error: ${data.error}\nDetails: ${data.details || data.message || 'No extra info'}`;
+      console.error("Guru API error:", data);
     } else {
       document.getElementById('result').innerText = "The guru could not interpret your dream at the moment.";
+      console.warn("Unexpected response:", data);
     }
 
   } catch (error) {
     document.getElementById('result').innerText = "Something went wrong. The guru is silent.";
-    console.error("Function error:", error);
+    console.error("Function crash:", error);
   }
 }
