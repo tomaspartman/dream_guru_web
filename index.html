@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dream Interpretation Guru – What Does Your Dream Mean?</title>
-  <meta name="description" content="Describe your dream and let our ancient guru reveal its hidden meaning. Discover deep insights into your subconscious.">
-  <meta name="keywords" content="dream interpretation, dream meaning, what does my dream mean, dream guru, dream analysis, dream decoding">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream Interpretation by the Guru</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LH27LSZTY9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LH27LSZTY9');
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Dream Interpretation by the Guru</h1>
-  <p>Write down your dream below and let the ancient dream guru unveil its secret meaning.</p>
-  
+  <p>
+    Write down your dream below and let the ancient dream guru unveil its secret meaning.
+  </p>
+
   <textarea id="dreamInput" placeholder="Last night I was flying above a city..."></textarea>
+  <br />
   <button onclick="interpretDream()">Reveal the Meaning</button>
-  
-  <div id="result"></div>
+
+  <div id="result" class="result">
+    <em>The guru could not interpret your dream at the moment.</em>
+  </div>
 
   <script src="script.js"></script>
 </body>
