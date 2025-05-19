@@ -38,8 +38,3 @@ async function interpretDream() {
   }
 }
 
-  } catch (error) {
-    document.getElementById('result').innerText = "Something went wrong. The guru is silent.";
-    console.error("Function crash:", error);
-  }
-}
