@@ -26,9 +26,17 @@ async function interpretDream() {
         `Guru error: ${data.error}\nDetails: ${data.details || data.message || 'No extra info'}`;
       console.error("Guru API error:", data);
     } else {
-      document.getElementById('result').innerText = "The guru could not interpret your dream at the moment.";
+      document.getElementById('result').innerText =
+        "The guru could not interpret your dream at the moment.";
       console.warn("Unexpected response:", data);
     }
+
+  } catch (error) {
+    document.getElementById('result').innerText =
+      "Something went wrong. The guru is silent.";
+    console.error("Function crash:", error);
+  }
+}
 
   } catch (error) {
     document.getElementById('result').innerText = "Something went wrong. The guru is silent.";
