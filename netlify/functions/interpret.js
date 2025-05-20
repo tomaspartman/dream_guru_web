@@ -1,6 +1,28 @@
 exports.handler = async (event) => {
   try {
-    const body = JSON.parse(event.body);
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Missing request body" })
+      };
+    }
+
+    let body;
+    try {
+      body = JSON.parse(event.body);
+    } catch (parseError) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Invalid JSON", message: parseError.message })
+      };
+    }
+
+    if (!body.dream) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "No dream provided" })
+      };
+    }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
