@@ -54,6 +54,11 @@ exports.handler = async (event) => {
         statusCode: 200,
         body: JSON.stringify({ result: data.choices[0].message.content })
       };
+      } else if (data.error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: data.error.message })
+      };
     } else {
       return {
         statusCode: 500,
