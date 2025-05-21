@@ -1,106 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interpret My Dream</title>
-    <style>
-        html, body {
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpret My Dream</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('Night Sky Stars Dream.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+      overflow-y: auto;
+    }
 
-        /* Pozadie */
-        .background-image {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1; /* najnižšie, pozadie */
-        }
+    .container {
+      padding: 20px;
+      margin-top: 50px;
+      z-index: 2;
+      position: relative;
+    }
 
-        .guru-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-bottom: 30px;
-            z-index: 2; /* nad pozadím */
-        }
+    h1 {
+      font-size: 2em;
+      text-shadow: 1px 1px 2px #000;
+    }
 
-        .guru-image {
-            width: 200px;
-            height: auto;
-        }
+    textarea {
+      width: 90%;
+      max-width: 500px;
+      height: 100px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      resize: none;
+      font-size: 16px;
+    }
 
-        .speech-bubble {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            max-width: 80%;
-            text-align: center;
-            font-size: 16px;
-            position: relative;
-        }
+    .interpret-button {
+      background: none;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
 
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px;
-            border-style: solid;
-            border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
-        }
+    .moon-image {
+      width: 70px;
+      height: auto;
+    }
 
-        .interpret-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 3; /* ešte vyššie */
-        }
+    .guru-container {
+      margin-top: 30px;
+    }
 
-        .moon-image {
-            width: 70px;
-            height: auto;
-        }
-    </style>
+    .guru-image {
+      width: 150px;
+      height: auto;
+    }
+
+    .speech-bubble {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+      border-radius: 15px;
+      padding: 15px;
+      max-width: 500px;
+      margin: 20px auto;
+      position: relative;
+      display: none; /* Skryté, kým nie je interpretácia pripravená */
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
+    <h1>Tell me about your dream...</h1>
+    <textarea id="dream-input" placeholder="Describe your dream here..."></textarea><br>
 
-    <!-- Obrázok pozadia ako element -->
-    <img src="Night Sky Stars Dream.png" alt="Background" class="background-image">
-
-    <button class="interpret-button">
-        <img class="moon-image" src="Moon Dream Spiritual.png" alt="Reveal Meaning">
+    <button class="interpret-button" onclick="interpretDream()">
+      <img class="moon-image" src="Moon Dream Spiritual.png" alt="Reveal Meaning">
     </button>
 
     <div class="guru-container">
-        <div class="speech-bubble" id="guru-response">
-            Your interpretation will appear here...
-        </div>
-        <img class="guru-image" src="Dream Meditation Interpret Guru  Monk Spiritual.png" alt="Guru">
+      <div class="speech-bubble" id="guru-response"></div>
+      <img class="guru-image" src="Dream Meditation Interpret Guru  Monk Spiritual.png" alt="Guru">
     </div>
+  </div>
 
-    <script>
-        document.querySelector('.interpret-button').onclick = function() {
-            document.getElementById('guru-response').innerText = 'Here is the meaning of your dream, seeker...';
-        };
-    </script>
+  <script>
+    function interpretDream() {
+      const dreamText = document.getElementById('dream-input').value;
+      const responseBubble = document.getElementById('guru-response');
 
+      if (dreamText.trim() === "") {
+        responseBubble.innerText = "Please describe your dream first, seeker...";
+      } else {
+        // Tu budeš volať svoju funkciu/API pre interpretáciu snov
+        responseBubble.innerText = "Here is the mystical interpretation of your dream...";
+      }
+      
+      responseBubble.style.display = "block";
+    }
+  </script>
 </body>
+
 </html>
