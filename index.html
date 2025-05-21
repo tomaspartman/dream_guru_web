@@ -106,18 +106,49 @@
     </div>
   </div>
 
-  <script>
-    function interpretDream() {
-      const dreamText = document.getElementById('dream-input').value;
+   <script>
+    async function interpretDream() {
+      const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
 
-      if (dreamText.trim() === "") {
+      if (!dreamText) {
         responseBubble.innerText = "Please describe your dream first, seeker...";
-      } else {
-        responseBubble.innerText = "Here is the mystical interpretation of your dream...";
+        responseBubble.style.display = "block";
+        return;
       }
 
+      responseBubble.innerText =
+        "The guru is meditating on your dream... please wait.";
       responseBubble.style.display = "block";
+
+      try {
+        const response = await fetch("/.netlify/functions/interpret", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ dream: dreamText })
+        });
+
+        const data = await response.json();
+
+        if (data.result) {
+          responseBubble.innerText = data.result;
+        } else if (data.error) {
+          responseBubble.innerText =
+            `Guru error: ${data.error}\nDetails: ${data.details || data.message || 'No extra info'}`;
+          console.error("Guru API error:", data);
+        } else {
+          responseBubble.innerText =
+            "The guru could not interpret your dream at the moment.";
+          console.warn("Unexpected response:", data);
+        }
+
+      } catch (error) {
+        responseBubble.innerText =
+          "Something went wrong. The guru is silent.";
+        console.error("Function crash:", error);
+      }
     }
   </script>
 </body>
