@@ -1,40 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dream Interpretation by the Guru</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpret My Dream</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: url('Stellar Night Dance_simple_compose.gif') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+        .guru-container {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LH27LSZTY9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-LH27LSZTY9');
-  </script>
+        .guru-image {
+            width: 200px;
+            height: auto;
+            margin-bottom: -5px;
+        }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+        .speech-bubble {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            display: inline-block;
+            max-width: 300px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            border-width: 10px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.8) transparent transparent transparent;
+            transform: translateX(-50%);
+        }
+
+        .interpret-button {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .moon-image {
+            width: 80px;
+            height: auto;
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-  <h1>Dream Interpretation by the Guru</h1>
-  <p>
-     Write down your dream below and let the ancient dream guru unveil your dream’s secret meaning.
-  </p>
 
-  <textarea id="dreamInput" placeholder="Last night I was flying above a city..."></textarea>
-  <br />
-  <button onclick="interpretDream()">Reveal the Meaning</button>
+    <button class="interpret-button">
+        <img class="moon-image" src="Moon Dream Spiritual.png" alt="Reveal Meaning">
+    </button>
 
-  <div id="result" class="result">
-    <em>The guru could not interpret your dream at the moment.</em>
-  </div>
+    <div class="guru-container">
+        <div class="speech-bubble" id="guru-response">
+            Your interpretation will appear here...
+        </div>
+        <img class="guru-image" src="Dream Meditation Interpret Guru  Monk Spiritual.png" alt="Guru">
+    </div>
 
-  <!-- Load application script last -->
-  <script src="script.js"></script>
+    <script>
+        // Dynamický text (ukážkový príklad):
+        document.querySelector('.interpret-button').onclick = function() {
+            document.getElementById('guru-response').innerText = 'Here is the meaning of your dream, seeker...';
+        };
+    </script>
+
 </body>
 </html>
