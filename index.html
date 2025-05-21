@@ -117,10 +117,11 @@
     </div>
   </div>
 
-   <script>
+  <script>
     async function interpretDream() {
       const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
+      const guruImage = document.querySelector('.guru-image');
 
       if (!dreamText) {
         responseBubble.innerText = "Please describe your dream first, seeker...";
@@ -131,6 +132,7 @@
       responseBubble.innerText =
         "The guru is meditating on your dream... please wait.";
       responseBubble.style.display = "block";
+      guruImage.classList.add('meditating');
 
       try {
         const response = await fetch("/.netlify/functions/interpret", {
@@ -159,6 +161,8 @@
         responseBubble.innerText =
           "Something went wrong. The guru is silent.";
         console.error("Function crash:", error);
+      } finally {
+        guruImage.classList.remove('meditating');
       }
     }
   </script>
