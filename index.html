@@ -1,117 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interpret My Dream</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpret My Dream</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('Night Sky Stars Dream.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+      overflow-y: auto;
+    }
 
-    <!-- Add this -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('Night Sky Stars Dream.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #ffffff;
-            text-align: center;
-            position: relative;
-            overflow-y: auto;
-        }
+    .container {
+      padding: 20px;
+      margin-top: 50px;
+    }
 
-        .container {
-            padding: 20px;
-            margin-top: 50px;
-        }
+    h1 {
+      font-size: 2em;
+      text-shadow: 1px 1px 2px #000;
+    }
 
-        h1 {
-            font-size: 2em;
-            text-shadow: 1px 1px 2px #000;
-        }
+    textarea {
+      width: 90%;
+      max-width: 500px;
+      height: 100px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      resize: none;
+      font-size: 16px;
+    }
 
-        textarea {
-            width: 90%;
-            max-width: 500px;
-            height: 100px;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            margin-top: 20px;
-            resize: none;
-            font-size: 16px;
-        }
+    .interpret-button {
+      background-color: #5d3a9b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 15px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .interpret-button {
-            background-color: #5d3a9b;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .moon-image {
+      width: 40px;
+      height: auto;
+    }
 
-        .moon-image {
-            width: 40px;
-            height: auto;
-        }
+    .guru-container {
+      margin-top: 30px;
+    }
 
-        .guru-container {
-            margin-top: 30px;
-        }
+    .guru-image {
+      width: 150px;
+      height: auto;
+    }
 
-             .guru-image {
-            width: 150px;
-            height: auto;
-        }
+    @keyframes meditate {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
 
-        @keyframes meditate {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
+    .guru-image.meditating {
+      animation: meditate 1s infinite ease-in-out;
+    }
 
-        .guru-image.meditating {
-            animation: meditate 1s infinite ease-in-out;
-        }
+    .speech-bubble {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+      border-radius: 15px;
+      padding: 15px;
+      max-width: 500px;
+      margin: 20px auto;
+      position: relative;
+      display: none;
+      text-align: justify;
+      white-space: pre-wrap;
+    }
 
+    .speech-bubble p.poem {
+      text-align: justify;
+      margin: 0 0 1rem 0;
+    }
 
-        .speech-bubble {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #000;
-            border-radius: 15px;
-            padding: 15px;
-            max-width: 500px;
-            margin: 20px auto;
-            position: relative;
-            display: none;
-          /* pridané zarovnanie textu */
-  text-align: justify;
-  white-space: pre-wrap; /* Zachováva formátovanie (nové riadky, odrážky) */
-}
+    .speech-bubble ul {
+      padding-left: 20px;
+      text-align: left;
+      margin-top: 10px;
+    }
 
-.speech-bubble ul {
-  padding-left: 20px;
-  text-align: left; /* zarovnanie zoznamu naľavo */
-  margin-top: 10px;
-}
-
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px;
-            border-style: solid;
-            border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
-        }
-    </style>
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -119,13 +120,13 @@
     <textarea id="dream-input" placeholder="Describe your dream here..."></textarea><br>
 
     <button class="interpret-button" onclick="interpretDream()">
-        <img class="moon-image" src="Moon Dream Spiritual.png" alt="Moon">
-        Click here to reveal the dream
+      <img class="moon-image" src="Moon Dream Spiritual.png" alt="Moon">
+      Click here to reveal the dream
     </button>
 
     <div class="guru-container">
-        <div class="speech-bubble" id="guru-response"></div>
-        <img class="guru-image" src="guru.png" alt="Guru">
+      <div class="speech-bubble" id="guru-response"></div>
+      <img class="guru-image" src="guru.png" alt="Guru">
     </div>
   </div>
 
@@ -158,7 +159,27 @@
         const data = await response.json();
 
         if (data.result) {
-          responseBubble.innerText = data.result;
+          const lines = data.result.split('\n');
+          let poem = '';
+          let bullets = [];
+
+          lines.forEach(line => {
+            if (line.startsWith('-')) {
+              bullets.push(line.substring(1).trim());
+            } else if (line.trim()) {
+              poem += `<p class="poem">${line.trim()}</p>`;
+            }
+          });
+
+          let html = poem;
+          if (bullets.length > 0) {
+            html += '<ul>';
+            bullets.forEach(b => html += `<li>${b}</li>`);
+            html += '</ul>';
+          }
+
+          responseBubble.innerHTML = html;
+
         } else if (data.error) {
           responseBubble.innerText =
             `Guru error: ${data.error}\nDetails: ${data.details || data.message || 'No extra info'}`;
