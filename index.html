@@ -87,7 +87,16 @@
             margin: 20px auto;
             position: relative;
             display: none;
-        }
+          /* pridané zarovnanie textu */
+  text-align: justify;
+  white-space: pre-wrap; /* Zachováva formátovanie (nové riadky, odrážky) */
+}
+
+.speech-bubble ul {
+  padding-left: 20px;
+  text-align: left; /* zarovnanie zoznamu naľavo */
+  margin-top: 10px;
+}
 
         .speech-bubble::after {
             content: '';
