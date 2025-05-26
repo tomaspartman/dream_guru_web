@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interpret My Dream</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <style>
+  <style>␊
     body {
       margin: 0;
       padding: 0;
@@ -31,52 +31,7 @@
     textarea {
       width: 90%;
       max-width: 500px;
-      height: 100px;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 20px;
-      resize: none;
-      font-size: 16px;
-    }
-
-    .interpret-button {
-      background-color: #5d3a9b;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 15px;
-      margin-top: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .moon-image {
-      width: 40px;
-      height: auto;
-    }
-
-    .guru-container {
-      margin-top: 30px;
-    }
-
-    .guru-image {
-      width: 150px;
-      height: auto;
-    }
-
-    @keyframes meditate {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .guru-image.meditating {
-      animation: meditate 1s infinite ease-in-out;
-    }
+@@ -80,80 +80,131 @@
 
     .speech-bubble {
       background-color: rgba(255, 255, 255, 0.9);
@@ -112,10 +67,56 @@
       border-style: solid;
       border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
     }
+
+    .about-section {
+      max-width: 500px;
+      margin: 60px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: left;
+    }
+
+    /* Navigation styles */
+    .menu-icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu {
+      display: none;
+      position: absolute;
+      top: 45px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .menu.show {
+      display: block;
+    }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <nav id="menu" class="menu">
+    <a href="#dreams">Dreams</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="container" id="dreams">
     <h1>Tell me about your dream...</h1>
     <textarea id="dream-input" placeholder="Describe your dream here..."></textarea><br>
 
@@ -130,8 +131,13 @@
     </div>
   </div>
 
+  <section id="about" class="about-section">
+    <h2>About</h2>
+    <p>This project interprets dreams using a mystical guru theme powered by AI.</p>
+  </section>
+
   <script>
-    async function interpretDream() {
+    async function interpretDream() {␊
       const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
       const guruImage = document.querySelector('.guru-image');
@@ -157,21 +163,7 @@
         });
 
         const data = await response.json();
-
-        if (data.result) {
-          const lines = data.result.split('\n');
-          let poem = '';
-          let bullets = [];
-
-          lines.forEach(line => {
-            if (line.startsWith('-')) {
-              bullets.push(line.substring(1).trim());
-            } else if (line.trim()) {
-              poem += `<p class="poem">${line.trim()}</p>`;
-            }
-          });
-
-          let html = poem;
+@@ -175,29 +226,34 @@
           if (bullets.length > 0) {
             html += '<ul>';
             bullets.forEach(b => html += `<li>${b}</li>`);
@@ -197,6 +189,11 @@
       } finally {
         guruImage.classList.remove('meditating');
       }
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
     }
   </script>
 </body>
