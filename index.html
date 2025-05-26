@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interpret My Dream</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <style>␍␊
+  <style>
     body {
       margin: 0;
       padding: 0;
@@ -31,7 +31,52 @@
     textarea {
       width: 90%;
       max-width: 500px;
-@@ -80,80 +80,131 @@
+      height: 100px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 20px;
+      resize: none;
+      font-size: 16px;
+    }
+
+    .interpret-button {
+      background-color: #5d3a9b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 15px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .moon-image {
+      width: 40px;
+      height: auto;
+    }
+
+    .guru-container {
+      margin-top: 30px;
+    }
+
+    .guru-image {
+      width: 150px;
+      height: auto;
+    }
+
+    @keyframes meditate {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .guru-image.meditating {
+      animation: meditate 1s infinite ease-in-out;
+    }
 
     .speech-bubble {
       background-color: rgba(255, 255, 255, 0.9);
@@ -86,7 +131,7 @@
   </div>
 
   <script>
-    async function interpretDream() {␍␊
+    async function interpretDream() {
       const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
       const guruImage = document.querySelector('.guru-image');
@@ -112,7 +157,21 @@
         });
 
         const data = await response.json();
-@@ -175,29 +226,34 @@
+
+        if (data.result) {
+          const lines = data.result.split('\n');
+          let poem = '';
+          let bullets = [];
+
+          lines.forEach(line => {
+            if (line.startsWith('-')) {
+              bullets.push(line.substring(1).trim());
+            } else if (line.trim()) {
+              poem += `<p class="poem">${line.trim()}</p>`;
+            }
+          });
+
+          let html = poem;
           if (bullets.length > 0) {
             html += '<ul>';
             bullets.forEach(b => html += `<li>${b}</li>`);
