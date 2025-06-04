@@ -220,27 +220,46 @@
       display: inline-block;
     }
 
-  .guru-image {
-  width: auto;
-  height: 260px;
-  border-radius: 0;
-  object-fit: contain;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  transition: all 0.5s ease;
-}
+    .guru-image {
+      width: auto;
+      height: 260px;
+      border-radius: 0;
+      object-fit: contain;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      transition: all 0.5s ease;
     }
 
     .guru-image.meditating {
       animation: levitate 2s ease-in-out infinite;
       box-shadow: 0 20px 40px rgba(183, 148, 246, 0.4);
       border-color: #b794f6;
+      filter: drop-shadow(0 0 20px rgba(183, 148, 246, 0.6));
     }
 
     @keyframes levitate {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    .guru-container.meditating::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 20px;
+      background: radial-gradient(ellipse at center, rgba(183, 148, 246, 0.5) 0%, rgba(183, 148, 246, 0) 80%);
+      filter: blur(8px);
+      pointer-events: none;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
     }
 
     .speech-bubble {
@@ -443,7 +462,8 @@
     async function interpretDream() {
       const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
-      const guruImage = document.querySelector('.guru-image');
+            const guruImage = document.querySelector('.guru-image');
+      const guruContainer = document.querySelector('.guru-container');
 
       if (!dreamText) {
         responseBubble.innerHTML = `
@@ -467,7 +487,8 @@
         <div class="poem-line">Your dream's wisdom is being unveiled...</div>
       `;
       responseBubble.style.display = "block";
-      guruImage.classList.add('meditating');
+            guruImage.classList.add('meditating');
+      guruContainer.classList.add('meditating');
 
       try {
         // Simulate API call - replace with your actual endpoint
@@ -527,7 +548,8 @@
         console.error("Dream interpretation error:", error);
       } finally {
         setTimeout(() => {
-          guruImage.classList.remove('meditating');
+             guruImage.classList.remove('meditating');
+          guruContainer.classList.remove('meditating');
         }, 1000);
       }
     }
