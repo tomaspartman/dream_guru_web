@@ -356,7 +356,8 @@
         margin: 30px 15px 25px;
       }
     }
-  </style>
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
 </head>
 <body>
   <!-- Animated background elements -->
@@ -481,7 +482,7 @@
         if (data.result) {
           const result = data.result;
           const lines = result.split('\n').filter(line => line.trim());
-          
+
           let poemHtml = '';
           let bulletHtml = '';
           let inBullets = false;
@@ -500,18 +501,20 @@
             finalHtml += `<ul>${bulletHtml}</ul>`;
           }
 
-          responseBubble.innerHTML = finalHtml;
+          responseBubble.innerHTML = DOMPurify.sanitize(finalHtml);
 
         } else if (data.error) {
-          responseBubble.innerHTML = `
+          const errorHtml = `
             <div class="poem-line">The cosmic energies are disturbed...</div>
             <div class="poem-line">Error: ${data.error}</div>
           `;
+          responseBubble.innerHTML = DOMPurify.sanitize(errorHtml);
         } else {
-          responseBubble.innerHTML = `
+          const defaultHtml = `
             <div class="poem-line">The oracle's vision is clouded at this moment.</div>
             <div class="poem-line">Please try again when the stars align.</div>
           `;
+          responseBubble.innerHTML = DOMPurify.sanitize(defaultHtml);
         }
 
       } catch (error) {
