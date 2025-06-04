@@ -215,7 +215,7 @@
       position: relative;
     }
 
-    .guru-container {
+     .guru-container {
       position: relative;
       display: inline-block;
     }
@@ -243,6 +243,25 @@
       50% { transform: translateY(-15px) scale(1.05); }
     }
 
+      .guru-container.meditating::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        transform: translateX(-50%);
+        width: 70%;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(ellipse at center, rgba(183, 148, 246, 0.5) 0%, rgba(183, 148, 246, 0) 70%);
+        filter: blur(8px);
+        pointer-events: none;
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
     .guru-container.meditating::after {
       content: '';
       position: absolute;
