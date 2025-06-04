@@ -528,6 +528,7 @@
       `;
       responseBubble.style.display = "block";
             guruImage.classList.add('meditating');
+    responseBubble.classList.add('waiting');
       guruContainer.classList.add('meditating');
 
       try {
@@ -589,7 +590,7 @@
       } finally {
         setTimeout(() => {
              guruImage.classList.remove('meditating');
-          guruContainer.classList.remove('meditating');
+          responseBubble.classList.remove('waiting');
         }, 1000);
       }
     }
