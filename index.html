@@ -3,151 +3,471 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interpret My Dream</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Mystic Dream Oracle - Interpret Your Dreams</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap');
+    
+    * {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('Night Sky Stars Dream.png') no-repeat center center fixed;
-      background-size: cover;
-      color: #ffffff;
-      text-align: center;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 50%, #0f0f1a 100%);
+      color: #e8e8f0;
+      min-height: 100vh;
       position: relative;
-      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* Animated starfield background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(45deg, #b794f6, #805ad5);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
     .container {
-      padding: 20px;
-      margin-top: 50px;
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
     }
 
-    h1 {
-      font-size: 2em;
-      text-shadow: 1px 1px 2px #000;
+    .header {
+      margin-bottom: 60px;
+    }
+
+    .title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      background: linear-gradient(135deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: #b794f6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: #a0a0b0;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .dream-input-section {
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .input-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     textarea {
-      width: 90%;
-      max-width: 500px;
-      height: 100px;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 20px;
+      width: 100%;
+      height: 140px;
+      padding: 25px;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      color: #e8e8f0;
+      font-size: 1.1rem;
+      font-family: 'Cormorant Garamond', serif;
       resize: none;
-      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #b794f6;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(183, 148, 246, 0.2);
+      transform: translateY(-2px);
+    }
+
+    textarea::placeholder {
+      color: #8a8a9a;
+      font-style: italic;
     }
 
     .interpret-button {
-      background-color: #5d3a9b;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
-      border-radius: 12px;
-      padding: 10px 15px;
-      margin-top: 20px;
+      border-radius: 50px;
+      padding: 18px 40px;
+      margin-top: 30px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 1.2rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
     }
 
-    .moon-image {
-      width: 40px;
-      height: auto;
+    .interpret-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .interpret-button:active {
+      transform: translateY(-1px);
+    }
+
+    .interpret-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .interpret-button:hover::before {
+      left: 100%;
+    }
+
+    .moon-icon {
+      width: 28px;
+      height: 28px;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    }
+
+    .guru-section {
+      margin-top: 80px;
+      position: relative;
     }
 
     .guru-container {
-      margin-top: 30px;
+      position: relative;
+      display: inline-block;
     }
 
     .guru-image {
-      width: 150px;
-      height: auto;
-    }
-
-    @keyframes meditate {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(183, 148, 246, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s ease;
     }
 
     .guru-image.meditating {
-      animation: meditate 1s infinite ease-in-out;
+      animation: levitate 2s ease-in-out infinite;
+      box-shadow: 0 20px 40px rgba(183, 148, 246, 0.4);
+      border-color: #b794f6;
+    }
+
+    @keyframes levitate {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
     }
 
     .speech-bubble {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #000;
-      border-radius: 15px;
-      padding: 15px;
-      max-width: 500px;
-      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      color: #2d3748;
+      border-radius: 25px;
+      padding: 30px;
+      max-width: 600px;
+      margin: 40px auto 30px;
       position: relative;
       display: none;
-      text-align: justify;
-      white-space: pre-wrap;
-    }
-
-    .speech-bubble p.poem {
-      text-align: justify;
-      margin: 0 0 1rem 0;
-    }
-
-    .speech-bubble ul {
-      padding-left: 20px;
       text-align: left;
-      margin-top: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(183, 148, 246, 0.2);
+      animation: bubbleAppear 0.5s ease-out;
+    }
+
+    @keyframes bubbleAppear {
+      0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .speech-bubble::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -15px;
       left: 50%;
       transform: translateX(-50%);
-      border-width: 10px;
+      border-width: 15px;
       border-style: solid;
-      border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+      border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+    }
+
+    .speech-bubble .poem-line {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      color: #4a5568;
+      font-style: italic;
+    }
+
+    .speech-bubble ul {
+      margin-top: 25px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .speech-bubble li {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      padding-left: 30px;
+      position: relative;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .speech-bubble li::before {
+      content: '✨';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.2rem;
+    }
+
+    .loading-dots {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #b794f6;
+      animation: bounce 1.4s ease-in-out infinite both;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .title {
+        font-size: 2.5rem;
+      }
+      
+      textarea {
+        height: 120px;
+        padding: 20px;
+      }
+      
+      .interpret-button {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+      }
+      
+      .guru-image {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .speech-bubble {
+        padding: 25px;
+        margin: 30px 15px 25px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Animated background elements -->
+  <div class="stars" id="stars"></div>
+  <div class="particles" id="particles"></div>
+
   <div class="container">
-    <h1>Tell me about your dream...</h1>
-    <textarea id="dream-input" placeholder="Describe your dream here..."></textarea><br>
+    <div class="header">
+      <h1 class="title">Mystic Dream Oracle</h1>
+      <p class="subtitle">Unveil the Mysteries of Your Subconscious</p>
+      <p class="description">
+        Share your dream with the ancient wisdom of the cosmos. Let the mystical energies 
+        reveal the hidden meanings within your nocturnal journeys.
+      </p>
+    </div>
 
-    <button class="interpret-button" onclick="interpretDream()">
-      <img class="moon-image" src="Moon Dream Spiritual.png" alt="Moon">
-      Click here to reveal the dream
-    </button>
+    <div class="dream-input-section">
+      <div class="input-container">
+        <textarea 
+          id="dream-input" 
+          placeholder="Describe the visions that visited you in your sleep..."
+          maxlength="1000"
+        ></textarea>
+      </div>
 
-    <div class="guru-container">
+      <button class="interpret-button" onclick="interpretDream()">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3a6 6 0 0 0 9 5.2A9 9 0 1 1 8.2 3Z"/>
+        </svg>
+        Reveal the Dream's Wisdom
+      </button>
+    </div>
+
+    <div class="guru-section">
       <div class="speech-bubble" id="guru-response"></div>
-      <img class="guru-image" src="guru.png" alt="Guru">
+      <div class="guru-container">
+        <img class="guru-image" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><radialGradient id='grad' cx='50%' cy='30%' r='70%'><stop offset='0%' stop-color='%23ffd89b'/><stop offset='100%' stop-color='%23f97316'/></radialGradient></defs><circle cx='100' cy='100' r='90' fill='url(%23grad)'/><circle cx='100' cy='85' r='45' fill='%23fbbf24'/><circle cx='85' cy='75' r='3' fill='%23374151'/><circle cx='115' cy='75' r='3' fill='%23374151'/><path d='M90 90 Q100 100 110 90' stroke='%23374151' stroke-width='2' fill='none'/><circle cx='100' cy='40' r='8' fill='%23f59e0b' opacity='0.7'/></svg>" alt="Mystic Oracle">
+      </div>
     </div>
   </div>
 
   <script>
+    // Create animated stars
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 1 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 15;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize background animations
+    document.addEventListener('DOMContentLoaded', function() {
+      createStars();
+      createParticles();
+    });
+
     async function interpretDream() {
       const dreamText = document.getElementById('dream-input').value.trim();
       const responseBubble = document.getElementById('guru-response');
       const guruImage = document.querySelector('.guru-image');
 
       if (!dreamText) {
-        responseBubble.innerText = "Please describe your dream first, seeker...";
+        responseBubble.innerHTML = `
+          <div class="poem-line">Speak, seeker, and share your dream...</div>
+          <div class="poem-line">The cosmos awaits your vision to unfold its mysteries.</div>
+        `;
         responseBubble.style.display = "block";
         return;
       }
 
-      responseBubble.innerText =
-        "The guru is meditating on your dream... please wait.";
+      // Show loading state
+      responseBubble.innerHTML = `
+        <div class="poem-line">
+          The oracle communes with the celestial realm
+          <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="poem-line">Your dream's wisdom is being unveiled...</div>
+      `;
       responseBubble.style.display = "block";
       guruImage.classList.add('meditating');
 
       try {
+        // Simulate API call - replace with your actual endpoint
         const response = await fetch("/.netlify/functions/interpret", {
           method: "POST",
           headers: {
@@ -159,45 +479,60 @@
         const data = await response.json();
 
         if (data.result) {
-          const lines = data.result.split('\n');
-          let poem = '';
-          let bullets = [];
+          const result = data.result;
+          const lines = result.split('\n').filter(line => line.trim());
+          
+          let poemHtml = '';
+          let bulletHtml = '';
+          let inBullets = false;
 
           lines.forEach(line => {
-            if (line.startsWith('-')) {
-              bullets.push(line.substring(1).trim());
-            } else if (line.trim()) {
-              poem += `<p class="poem">${line.trim()}</p>`;
+            if (line.trim().startsWith('-')) {
+              inBullets = true;
+              bulletHtml += `<li>${line.trim().substring(1).trim()}</li>`;
+            } else if (line.trim() && !inBullets) {
+              poemHtml += `<div class="poem-line">${line.trim()}</div>`;
             }
           });
 
-          let html = poem;
-          if (bullets.length > 0) {
-            html += '<ul>';
-            bullets.forEach(b => html += `<li>${b}</li>`);
-            html += '</ul>';
+          let finalHtml = poemHtml;
+          if (bulletHtml) {
+            finalHtml += `<ul>${bulletHtml}</ul>`;
           }
 
-          responseBubble.innerHTML = html;
+          responseBubble.innerHTML = finalHtml;
 
         } else if (data.error) {
-          responseBubble.innerText =
-            `Guru error: ${data.error}\nDetails: ${data.details || data.message || 'No extra info'}`;
-          console.error("Guru API error:", data);
+          responseBubble.innerHTML = `
+            <div class="poem-line">The cosmic energies are disturbed...</div>
+            <div class="poem-line">Error: ${data.error}</div>
+          `;
         } else {
-          responseBubble.innerText =
-            "The guru could not interpret your dream at the moment.";
-          console.warn("Unexpected response:", data);
+          responseBubble.innerHTML = `
+            <div class="poem-line">The oracle's vision is clouded at this moment.</div>
+            <div class="poem-line">Please try again when the stars align.</div>
+          `;
         }
 
       } catch (error) {
-        responseBubble.innerText =
-          "Something went wrong. The guru is silent.";
-        console.error("Function crash:", error);
+        responseBubble.innerHTML = `
+          <div class="poem-line">The connection to the spiritual realm has been severed.</div>
+          <div class="poem-line">Please try again when the cosmic winds are calmer.</div>
+        `;
+        console.error("Dream interpretation error:", error);
       } finally {
-        guruImage.classList.remove('meditating');
+        setTimeout(() => {
+          guruImage.classList.remove('meditating');
+        }, 1000);
       }
     }
+
+    // Add enter key support
+    document.getElementById('dream-input').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && event.ctrlKey) {
+        interpretDream();
+      }
+    });
   </script>
 </body>
 </html>
