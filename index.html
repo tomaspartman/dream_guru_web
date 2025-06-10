@@ -402,21 +402,24 @@
     </div>
 
     <div class="dream-input-section">
-      <div class="input-container">
-        <textarea 
-          id="dream-input" 
-          placeholder="Describe the visions that visited you in your sleep..."
-          maxlength="1000"
-        ></textarea>
-      </div>
+    <form name="dreams" method="POST" data-netlify="true">
+        <div class="input-container">
+            <textarea 
+              id="dream-input" 
+              name="dream"
+              placeholder="Describe the visions that visited you in your sleep..."
+              maxlength="1000"
+            ></textarea>
+        </div>
 
-      <button class="interpret-button" onclick="interpretDream()">
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3a6 6 0 0 0 9 5.2A9 9 0 1 1 8.2 3Z"/>
-        </svg>
-        Reveal the Dream's Wisdom
-      </button>
-    </div>
+        <button type="submit" class="interpret-button" onclick="interpretDream(event)">
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3a6 6 0 0 0 9 5.2A9 9 0 1 1 8.2 3Z"/>
+            </svg>
+            Reveal the Dream's Wisdom
+        </button>
+    </form>
+</div>
 
     <div class="guru-section">
       <div class="speech-bubble" id="guru-response"></div>
