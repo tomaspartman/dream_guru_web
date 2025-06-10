@@ -468,11 +468,13 @@
       createParticles();
     });
 
-    async function interpretDream() {
-      const dreamText = document.getElementById('dream-input').value.trim();
-      const responseBubble = document.getElementById('guru-response');
-            const guruImage = document.querySelector('.guru-image');
-      const guruContainer = document.querySelector('.guru-container');
+   async function interpretDream(event) {
+  event.preventDefault(); // TENTO RIADOK JE DÔLEŽITÝ - zabráni obnoveniu stránky
+
+  const dreamText = document.getElementById('dream-input').value.trim();
+  const responseBubble = document.getElementById('guru-response');
+        const guruImage = document.querySelector('.guru-image');
+  const guruContainer = document.querySelector('.guru-container');
 
       if (!dreamText) {
         responseBubble.innerHTML = `
